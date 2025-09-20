@@ -12,7 +12,7 @@ const Monitoring = () => {
             <p className="text-3xl font-bold mb-3">Monitoring Kualitas Air</p>
             <div className="w-full h-full flex items-center justify-center gap-x-5">
                 <div className="w-full h-full flex flex-col gap-y-5">
-                    <div className="bg-[#FFF7F7] p-4 rounded-md border border-black">
+                    <div className="bg-[#FFF7F7] p-4 rounded-md border border-black flex items-center justify-center">
                         <LineChart/>
                     </div>
                     <div className="bg-[#FFF7F7] p-4 rounded-md border border-black">Data sensor dan simulasi</div>

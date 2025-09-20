@@ -26,7 +26,7 @@ const LineChart = () => {
     labels: ["Jan", "Feb", "Mar", "Apr", "May"],
     datasets: [
       {
-        label: "Sales",
+        label: "Bacaan Sensor NTU",
         data: [3,2,2,1,5],
         borderColor: "blue",
         backgroundColor: "lightblue",
@@ -40,7 +40,7 @@ const LineChart = () => {
     responsive: true,
     plugins: {
       legend: {position: 'top'},
-      title: {display: true, text: "Monthly Sales"}
+      title: {display: true, text: "Bacaan Sensor"}
     },
   };
 
