@@ -1,4 +1,6 @@
-import React from 'react'
+"use client"
+
+import React, { useEffect, useState } from 'react'
 import { Line } from 'react-chartjs-2'
 import {
   Chart as ChartJS,
@@ -10,6 +12,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { getCurrentDateTimeID } from '../utils/functions';
 
 ChartJS.register(
   LineElement,
@@ -22,14 +25,54 @@ ChartJS.register(
 );
 
 const LineChart = () => {
+  const [sensorData1, setSensorData1] = useState([3,2,2,1,5]);
+  const [sensorData2, setSensorData2] = useState([5,4,6,2,3]);
+  const [{date, time}, setDateTime] = useState(getCurrentDateTimeID());
+  const [timeLabels, setTimeLabels] = useState([time]);
+
+  const getRandomData = () => Array.from({length: 5}, () => Math.floor(Math.random() * 100 - 13));
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const {time: newTime, date: newDate} = getCurrentDateTimeID();
+      
+      setTimeLabels(prev => {
+        const updated = [...prev, newTime];
+        return updated.slice(-5);
+      })
+
+      setSensorData1(prev => {
+        const updated = [...prev, getRandomData()];
+        return updated.slice(-5)
+      });
+
+      setSensorData2(prev => {
+        const updated = [...prev, getRandomData()];
+        return updated.slice(-5)
+      });
+
+      setDateTime({time: newTime, date: newDate});
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [])
+
   const data = {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May"],
+    labels: timeLabels,
     datasets: [
       {
-        label: "Bacaan Sensor NTU",
-        data: [3,2,2,1,5],
+        label: "Bacaan Sensor NTU 1",
+        data: sensorData1,
         borderColor: "blue",
         backgroundColor: "lightblue",
+        fill: true,
+        tension: 0.4
+      },
+      {
+        label: "Bacaan Sensor NTU 2",
+        data: sensorData2,
+        borderColor: "red",
+        backgroundColor: "pink",
         fill: true,
         tension: 0.4
       },

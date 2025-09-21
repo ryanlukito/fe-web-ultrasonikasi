@@ -5,8 +5,8 @@ const KontroldanFrekuensi = ({Frekuensi1, Frekuensi2}) => {
     <div className='flex flex-row items-start justify-center text-black gap-x-4'>
         <div className='flex flex-col items-center justify-center gap-y-3'>
             <p className='text-lg font-bold'>Pemancar Ultrasonik</p>
-            <button className='py-3 px-8 rounded-md bg-green-400'>ON</button>
-            <button className='py-3 px-8 rounded-md bg-red-400'>OFF</button>
+            <button className='py-3 px-8 rounded-md font-bold bg-green-400 hover:bg-green-600'>ON</button>
+            <button className='py-3 px-8 rounded-md font-bold bg-red-400 hover:bg-red-600'>OFF</button>
         </div>
         <div className='flex flex-col items-start justify-start font-bold gap-y-3'>
             <div className='flex flex-col items-center justify-start'>
