@@ -20,7 +20,7 @@ const Monitoring = () => {
                     </div>
                 </div>
                 <div className="w-full h-full flex flex-col gap-y-5">
-                    <div className="bg-[#FFF7F7] p-4 rounded-md border border-black">
+                    <div className="bg-[#FFF7F7] py-4 rounded-md border border-black">
                         <BacaanSensor NTU1="50" NTU2="50"/>
                     </div>
                     <div className="bg-[#FFF7F7] p-4 rounded-md border border-black">

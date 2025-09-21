@@ -2,7 +2,7 @@ import React from 'react'
 
 const KontroldanFrekuensi = ({Frekuensi1, Frekuensi2}) => {
   return (
-    <div className='flex flex-row items-start justify-center text-black gap-x-4'>
+    <div className='flex flex-row items-start justify-evenly text-black gap-x-4'>
         <div className='flex flex-col items-center justify-center gap-y-3'>
             <p className='text-lg font-bold'>Pemancar Ultrasonik</p>
             <button className='py-3 px-8 rounded-md font-bold bg-green-400 hover:bg-green-600'>ON</button>

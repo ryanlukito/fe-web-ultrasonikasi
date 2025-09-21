@@ -61,7 +61,7 @@ const LineChart = () => {
     labels: timeLabels,
     datasets: [
       {
-        label: "Bacaan Sensor NTU 1",
+        label: "Sensor NTU 1",
         data: sensorData1,
         borderColor: "blue",
         backgroundColor: "lightblue",
@@ -69,7 +69,7 @@ const LineChart = () => {
         tension: 0.4
       },
       {
-        label: "Bacaan Sensor NTU 2",
+        label: "Sensor NTU 2",
         data: sensorData2,
         borderColor: "red",
         backgroundColor: "pink",
@@ -83,7 +83,7 @@ const LineChart = () => {
     responsive: true,
     plugins: {
       legend: {position: 'top'},
-      title: {display: true, text: "Bacaan Sensor"}
+      title: {display: true, text: `Bacaan Sensor ${date}`}
     },
   };
 
