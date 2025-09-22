@@ -31,26 +31,17 @@ const LineChart = () => {
   const [{date, time}, setDateTime] = useState(getCurrentDateTimeID());
   const [timeLabels, setTimeLabels] = useState([time]);
 
-  const getRandomData = () => Array.from({length: 5}, () => Math.floor(Math.random() * 100 - 13));
+  const getRandomData = () => Array.from({length: 5}, () => Math.floor(Math.random() * 100));
 
   useEffect(() => {
     const interval = setInterval(() => {
       const {time: newTime, date: newDate} = getCurrentDateTimeID();
+
+      setTimeLabels(prev => [...prev, newTime].slice(-5));
+
+      setSensorData1(prev => [...prev, getRandomData()].slice(-5));
       
-      setTimeLabels(prev => {
-        const updated = [...prev, newTime];
-        return updated.slice(-5);
-      })
-
-      setSensorData1(prev => {
-        const updated = [...prev, getRandomData()];
-        return updated.slice(-5)
-      });
-
-      setSensorData2(prev => {
-        const updated = [...prev, getRandomData()];
-        return updated.slice(-5)
-      });
+      setSensorData2(prev => [...prev, getRandomData()].slice(-5));
 
       setDateTime({time: newTime, date: newDate});
     }, 1000);
