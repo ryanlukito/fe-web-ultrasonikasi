@@ -13,6 +13,7 @@ import {
   Legend,
 } from "chart.js";
 import { getCurrentDateTimeID } from '../utils/functions';
+import mqtt from 'mqtt';
 
 ChartJS.register(
   LineElement,

@@ -1,9 +1,13 @@
-import HomePage from "./pages/HomePage"
+import { Outlet, Link } from "react-router-dom"
 
 function App() {
-
   return (
-    <HomePage/>
+    <div>
+      {/* Render the child route here */}
+      <div>
+        <Outlet />
+      </div>
+    </div>
   )
 }
 
