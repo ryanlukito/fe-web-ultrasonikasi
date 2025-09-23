@@ -20,19 +20,19 @@ const Navbar = () => {
         <div className="flex items-center gap-x-6 text-white font-medium">
           <Link
             to="/"
-            className="hover:text-green-200 transition-colors duration-200"
+            className="hover:text-green-200 hover:underline transition-colors duration-200"
           >
             Home
           </Link>
           <Link
             to="/monitoring"
-            className="hover:text-green-200 transition-colors duration-200"
+            className="hover:text-green-200 hover:underline transition-colors duration-200"
           >
             Monitoring
           </Link>
           <Link
             to="/edukasi"
-            className="hover:text-green-200 transition-colors duration-200"
+            className="hover:text-green-200 hover:underline transition-colors duration-200"
           >
             Edukasi
           </Link>

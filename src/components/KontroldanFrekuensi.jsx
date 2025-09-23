@@ -31,13 +31,13 @@ const KontroldanFrekuensi = ({ Frekuensi1, Frekuensi2 }) => {
         <p className="text-lg font-bold">Pemancar Ultrasonik</p>
         <button
           onClick={() => sendCommand(1)}
-          className="py-3 px-8 rounded-md font-bold bg-green-400 hover:bg-green-600"
+          className="text-white py-3 px-8 rounded-md font-bold bg-green-500 hover:bg-green-700"
         >
           ON
         </button>
         <button
           onClick={() => sendCommand(0)}
-          className="py-3 px-8 rounded-md font-bold bg-red-400 hover:bg-red-600"
+          className="text-white py-3 px-8 rounded-md font-bold bg-red-500 hover:bg-red-700"
         >
           OFF
         </button>

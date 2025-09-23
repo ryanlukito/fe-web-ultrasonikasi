@@ -18,7 +18,7 @@ const MainPage = () => {
         <div className="absolute inset-0 bg-black/40" />
 
         {/* Hero Content */}
-        <div className="relative z-10 flex flex-col items-center justify-center h-full px-6 py-10 text-center text-white">
+        <div className="relative z-10 flex flex-col items-center justify-center h-full px-6 py-12 text-center text-white">
           <h1 className="font-extrabold text-4xl md:text-6xl leading-tight drop-shadow-lg">
             Solusi Cerdas untuk
             <br />
