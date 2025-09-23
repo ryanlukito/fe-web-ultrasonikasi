@@ -35,7 +35,7 @@ const Monitoring = () => {
           <div className="flex flex-col gap-6">
             {/* Bacaan Sensor */}
             <div className="bg-white shadow-md rounded-xl p-5">
-              <BacaanSensor NTU1="50" NTU2="50" />
+              <BacaanSensor/>
             </div>
 
             {/* Kontrol & Frekuensi */}

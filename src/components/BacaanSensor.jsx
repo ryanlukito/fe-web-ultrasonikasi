@@ -1,7 +1,7 @@
 import React from 'react'
 import { useMqtt } from '../utils/functions'
 
-const BacaanSensor = ({NTU1, NTU2}) => {
+const BacaanSensor = () => {
   const {sensorData1, sensorData2, timeLabels, date} = useMqtt('/receive_data')
   return (
     <div className='flex items-center justify-evenly'>
