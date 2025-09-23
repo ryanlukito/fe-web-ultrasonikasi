@@ -12,7 +12,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { getCurrentDateTimeID } from '../utils/functions';
+import { useMqtt } from '../utils/functions';
 import mqtt from 'mqtt';
 
 ChartJS.register(
@@ -26,28 +26,10 @@ ChartJS.register(
 );
 
 const LineChart = () => {
-  const [sensorData1, setSensorData1] = useState([3,2,2,1,5]);
-  const [sensorData2, setSensorData2] = useState([5,4,6,2,3]);
-  const [{date, time}, setDateTime] = useState(getCurrentDateTimeID());
-  const [timeLabels, setTimeLabels] = useState([time]);
-
-  const getRandomData = () => Array.from({length: 5}, () => Math.floor(Math.random() * 100));
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const {time: newTime, date: newDate} = getCurrentDateTimeID();
-
-      setTimeLabels(prev => [...prev, newTime].slice(-5));
-
-      setSensorData1(prev => [...prev, getRandomData()].slice(-5));
-      
-      setSensorData2(prev => [...prev, getRandomData()].slice(-5));
-
-      setDateTime({time: newTime, date: newDate});
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [])
+  const {sensorData1, 
+         sensorData2, 
+         timeLabels, 
+         date} = useMqtt('/receive_data')
 
   const data = {
     labels: timeLabels,
