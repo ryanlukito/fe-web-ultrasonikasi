@@ -1,5 +1,8 @@
-import React, { useEffect, useRef } from "react";
+"use client";
+
+import { useEffect, useRef } from "react";
 import mqtt from "mqtt";
+import toast from "react-hot-toast";
 
 const KontroldanFrekuensi = ({ Frekuensi1, Frekuensi2 }) => {
   const clientRef = useRef(null);
@@ -13,6 +16,11 @@ const KontroldanFrekuensi = ({ Frekuensi1, Frekuensi2 }) => {
       console.log("✅ Connected to MQTT broker (KontroldanFrekuensi)");
     });
 
+    client.on("error", (err) => {
+      toast.error("❌ MQTT Connection error");
+      console.error(err);
+    })
+
     return () => {
       client.end();
     };
@@ -21,7 +29,23 @@ const KontroldanFrekuensi = ({ Frekuensi1, Frekuensi2 }) => {
   const sendCommand = (value) => {
     if (clientRef.current) {
       clientRef.current.publish("/control", JSON.stringify({ state: value }));
-      console.log("📤 Sent command:", value);
+      
+      const msg =
+        value === 1 ? (
+          <span>
+            Ultrasonic transmitter turned{" "}
+            <span className="font-bold text-green-500">ON</span>
+          </span>
+        ) : (
+          <span>
+            Ultrasonic transmitter turned{" "}
+            <span className="font-bold text-red-500">OFF</span>
+          </span>
+        );
+      
+      toast.success(msg);
+    } else {
+      toast.error("MQTT client not connected")
     }
   };
 

@@ -1,4 +1,7 @@
 import Navbar from "../components/navbar"
+import { FaRegClock } from "react-icons/fa6";
+import { MdOutlineSettingsRemote } from "react-icons/md";
+import { IoWater } from "react-icons/io5";
 
 const MainPage = () => {
   return (
@@ -37,7 +40,8 @@ const MainPage = () => {
         </h2>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-6 px-6">
           {/* Feature Card */}
-          <div className="bg-white shadow-md rounded-2xl px-6 py-8 w-64 text-center hover:shadow-xl transition duration-300">
+          <div className="bg-white shadow-md rounded-2xl px-6 py-8 w-64 text-center hover:shadow-xl transition duration-300 flex flex-col items-center justify-center">
+            <FaRegClock size={40} className="mb-3"/>
             <p className="text-xl font-semibold text-green-600">
               Pemantauan Realtime
             </p>
@@ -46,7 +50,8 @@ const MainPage = () => {
             </p>
           </div>
 
-          <div className="bg-white shadow-md rounded-2xl px-6 py-8 w-64 text-center hover:shadow-xl transition duration-300">
+          <div className="bg-white shadow-md rounded-2xl px-6 py-8 w-64 text-center hover:shadow-xl transition duration-300 flex flex-col items-center justify-center">
+            <MdOutlineSettingsRemote size={40} className="mb-3"/>
             <p className="text-xl font-semibold text-green-600">
               Kontrol On/Off Jarak Jauh
             </p>
@@ -55,7 +60,8 @@ const MainPage = () => {
             </p>
           </div>
 
-          <div className="bg-white shadow-md rounded-2xl px-6 py-8 w-64 text-center hover:shadow-xl transition duration-300">
+          <div className="bg-white shadow-md rounded-2xl px-6 py-8 w-64 text-center hover:shadow-xl transition duration-300 flex flex-col items-center justify-center">
+            <IoWater size={40} className="mb-3"/>
             <p className="text-xl font-semibold text-green-600">
               Solusi Ramah Lingkungan
             </p>

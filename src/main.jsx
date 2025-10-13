@@ -11,10 +11,7 @@ import ProtectedRoute from './pages/ProtectedRoute.jsx'
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
     <Routes>
-      {/* Public route */}
       <Route path="/login" element={<Login />} />
-
-      {/* Protected app routes */}
       <Route element={<ProtectedRoute/>}>
         <Route path="/" element={<App />}>
           <Route index element={<HomePage />} />

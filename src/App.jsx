@@ -1,9 +1,10 @@
-import { Outlet, Link } from "react-router-dom"
+import { Outlet} from "react-router-dom"
+import {Toaster} from "react-hot-toast"
 
 function App() {
   return (
     <div>
-      {/* Render the child route here */}
+      <Toaster position="top-center" reverseOrder={false}/>
       <div>
         <Outlet />
       </div>
