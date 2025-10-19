@@ -2,7 +2,7 @@ import BacaanSensor from "../components/BacaanSensor"
 import DataSensor from "../components/DataSensor"
 import KontroldanFrekuensi from "../components/KontroldanFrekuensi"
 import LineChart from "../components/LineChart"
-import Navbar from "../components/navbar"
+import Navbar from "../components/Navbar"
 
 const Monitoring = () => {
   return (
