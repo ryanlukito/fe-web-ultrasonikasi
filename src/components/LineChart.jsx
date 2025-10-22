@@ -29,7 +29,7 @@ const LineChart = () => {
   const {sensorData1, 
          sensorData2, 
          timeLabels, 
-         date} = useMqtt('/receive_data')
+         date} = useMqtt('/d01/receive_data')
 
   const data = {
     labels: timeLabels,
