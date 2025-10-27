@@ -50,7 +50,7 @@ const MainPage = () => {
             </p>
           </div>
 
-          <div className="bg-white shadow-md rounded-2xl px-6 py-8 w-64 text-center hover:shadow-xl transition duration-300 flex flex-col items-center justify-center">
+          {/* <div className="bg-white shadow-md rounded-2xl px-6 py-8 w-64 text-center hover:shadow-xl transition duration-300 flex flex-col items-center justify-center">
             <MdOutlineSettingsRemote size={40} className="mb-3"/>
             <p className="text-xl font-semibold text-green-600">
               Kontrol On/Off Jarak Jauh
@@ -58,7 +58,7 @@ const MainPage = () => {
             <p className="mt-2 text-gray-600 text-sm">
               Kendalikan perangkat kapan saja dan di mana saja.
             </p>
-          </div>
+          </div> */}
 
           <div className="bg-white shadow-md rounded-2xl px-6 py-8 w-64 text-center hover:shadow-xl transition duration-300 flex flex-col items-center justify-center">
             <IoWater size={40} className="mb-3"/>

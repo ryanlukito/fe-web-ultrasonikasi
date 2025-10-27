@@ -1,14 +1,14 @@
 import BacaanSensor from "../components/BacaanSensor"
-import DataSensor from "../components/DataSensor"
+// import DataSensor from "../components/DataSensor"
 import KontroldanFrekuensi from "../components/KontroldanFrekuensi"
 import LineChart from "../components/LineChart"
-import Navbar from "../components/Navbar"
+// import Navbar from "../components/Navbar"
 
 const Monitoring = () => {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Navbar */}
-      <Navbar />
+      {/* <Navbar /> */}
 
       {/* Main Content */}
       <div className="flex-1 px-10 py-6 overflow-y-auto">
@@ -26,9 +26,9 @@ const Monitoring = () => {
             </div>
 
             {/* Data Sensor */}
-            <div className="bg-white shadow-md rounded-xl p-5">
+            {/* <div className="bg-white shadow-md rounded-xl p-5">
               <DataSensor lokasiSensor="UGM" />
-            </div>
+            </div> */}
           </div>
 
           {/* Right Column */}
@@ -40,7 +40,7 @@ const Monitoring = () => {
 
             {/* Kontrol & Frekuensi */}
             <div className="bg-white shadow-md rounded-xl p-5">
-              <KontroldanFrekuensi Frekuensi1="50" Frekuensi2="50" />
+              <KontroldanFrekuensi lokasiSensor="UGM"/>
             </div>
           </div>
         </div>

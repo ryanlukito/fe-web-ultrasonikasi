@@ -1,11 +1,13 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import mqtt from "mqtt";
 import toast from "react-hot-toast";
+import { getCurrentDateTimeID } from "../utils/functions";
 
-const KontroldanFrekuensi = ({ Frekuensi1, Frekuensi2 }) => {
+const KontroldanFrekuensi = ({lokasiSensor}) => {
   const clientRef = useRef(null);
+  const [{date, time}, setDateTime] = useState(getCurrentDateTimeID());
 
   useEffect(() => {
     // Connect once when component mounts
@@ -21,8 +23,13 @@ const KontroldanFrekuensi = ({ Frekuensi1, Frekuensi2 }) => {
       console.error(err);
     })
 
+    const interval = setInterval(() => {
+        setDateTime(getCurrentDateTimeID());
+      }, 1000);
+
     return () => {
       client.end();
+      clearInterval(interval);
     };
   }, []);
 
@@ -66,7 +73,13 @@ const KontroldanFrekuensi = ({ Frekuensi1, Frekuensi2 }) => {
           OFF
         </button>
       </div>
-      <div className="flex flex-col items-start justify-start font-bold gap-y-3">
+      <div>
+        <p className='text-xl font-bold mb-3'>Data Sensor</p>
+        <p>Lokasi: <span>{lokasiSensor}</span></p>
+        <p>Tanggal: <span>{date}</span></p>
+        <p>Waktu: <span>{time}</span> WIB</p>
+      </div>
+      {/* <div className="flex flex-col items-start justify-start font-bold gap-y-3">
         <div className="flex flex-col items-center justify-start">
           <p className="text-lg">Frekuensi Alat 1</p>
           <p className="text-3xl">{Frekuensi1} Hz</p>
@@ -75,7 +88,7 @@ const KontroldanFrekuensi = ({ Frekuensi1, Frekuensi2 }) => {
           <p className="text-lg">Frekuensi Alat 2</p>
           <p className="text-3xl">{Frekuensi2} Hz</p>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

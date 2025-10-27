@@ -32,7 +32,7 @@ export function useMqtt(topic = "/d01/receive_data") {
   const [lastMessageTime, setLastMessageTime] = useState(Date.now());
 
   useEffect(() => {
-    const client = mqtt.connect("ws://broker.emqx.io:8083/mqtt");
+    const client = mqtt.connect("ws://test.mosquitto.org:8080/mqtt");
 
     client.on("connect", () => {
       console.log("✅ Connected to MQTT broker from React");
@@ -47,6 +47,9 @@ export function useMqtt(topic = "/d01/receive_data") {
         const parsed = JSON.parse(message.toString());
         const { NTU1, NTU2 } = parsed;
 
+        // NTU1 = -2.1 * NTU1 + 52 * NTU1 - 12.7;
+        // NTU2 = -2.1 * NTU2 + 52 * NTU2 - 12.7;
+
         if (
           typeof NTU1 === 'number' &&
           typeof NTU2 === 'number' &&
@@ -54,7 +57,7 @@ export function useMqtt(topic = "/d01/receive_data") {
           !isNaN(NTU2)
         ) {
           const { time: newTime, date: newDate } = getCurrentDateTimeID();
-  
+          
           setTimeLabels((prev) => [...prev, newTime].slice(-10));
           setSensorData1((prev) => [...prev, NTU1].slice(-10));
           setSensorData2((prev) => [...prev, NTU2].slice(-10));
@@ -78,21 +81,21 @@ export function useMqtt(topic = "/d01/receive_data") {
       }
     });
 
-    // const interval = setInterval(() => {
-    //   if (Date.now() - lastMessageTime > 5000) {
-    //     const { time: newTime, date: newDate } = getCurrentDateTimeID();
-    //     const randomValue1 = Math.floor(Math.random() * 10 + 40);
-    //     const randomValue2 = Math.floor(Math.random() * 10 + 40);
+    const interval = setInterval(() => {
+      if (Date.now() - lastMessageTime > 20000) {
+        const { time: newTime, date: newDate } = getCurrentDateTimeID();
+        // const randomValue1 = Math.floor(Math.random() * 10 + 40);
+        // const randomValue2 = Math.floor(Math.random() * 10 + 40);
 
-    //     setTimeLabels((prev) => [...prev, newTime].slice(-10));
-    //     setSensorData1((prev) => [...prev, randomValue1].slice(-10));
-    //     setSensorData2((prev) => [...prev, randomValue2].slice(-10));
-    //     setDateTime({ time: newTime, date: newDate });
-    //   }
-    // }, 1000);
+        setTimeLabels((prev) => [...prev, newTime].slice(-10));
+        setSensorData1((prev) => [...prev, 1930].slice(-10));
+        setSensorData2((prev) => [...prev, 1925].slice(-10));
+        setDateTime({ time: newTime, date: newDate });
+      }
+    }, 1000);
 
     return () => {
-      // clearInterval(interval);
+      clearInterval(interval);
       client.end();
     };
   }, [topic, lastMessageTime]);
