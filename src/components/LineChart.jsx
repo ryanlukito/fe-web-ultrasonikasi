@@ -12,7 +12,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { useMqtt } from '../utils/functions';
+import { useMqttReceiveData } from '../utils/functions';
 import mqtt from 'mqtt';
 
 ChartJS.register(
@@ -29,7 +29,7 @@ const LineChart = () => {
   const {sensorData1, 
          sensorData2, 
          timeLabels, 
-         date} = useMqtt('/d01/receive_data')
+         date} = useMqttReceiveData('/d01/receive_data')
 
   const data = {
     labels: timeLabels,

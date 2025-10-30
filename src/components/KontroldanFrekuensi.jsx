@@ -3,12 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 import mqtt from "mqtt";
 import toast from "react-hot-toast";
-import { getCurrentDateTimeID } from "../utils/functions";
+import { useMqttFreqData } from "../utils/functions";
 
-const KontroldanFrekuensi = ({lokasiSensor}) => {
+const KontroldanFrekuensi = ({Frekuensi1, Frekuensi2}) => {
   const clientRef = useRef(null);
-  const [{date, time}, setDateTime] = useState(getCurrentDateTimeID());
-
+  const {freqData1, freqData2} = useMqttFreqData('/d01/receive_data')
+  
   useEffect(() => {
     // Connect once when component mounts
     const client = mqtt.connect("ws://broker.emqx.io:8083/mqtt");
@@ -23,13 +23,13 @@ const KontroldanFrekuensi = ({lokasiSensor}) => {
       console.error(err);
     })
 
-    const interval = setInterval(() => {
-        setDateTime(getCurrentDateTimeID());
-      }, 1000);
+    // const interval = setInterval(() => {
+    //     setDateTime(getCurrentDateTimeID());
+    //   }, 1000);
 
     return () => {
       client.end();
-      clearInterval(interval);
+      // clearInterval(interval);
     };
   }, []);
 
@@ -73,22 +73,22 @@ const KontroldanFrekuensi = ({lokasiSensor}) => {
           OFF
         </button>
       </div>
-      <div>
+      {/* <div>
         <p className='text-xl font-bold mb-3'>Data Sensor</p>
         <p>Lokasi: <span>{lokasiSensor}</span></p>
         <p>Tanggal: <span>{date}</span></p>
         <p>Waktu: <span>{time}</span> WIB</p>
-      </div>
-      {/* <div className="flex flex-col items-start justify-start font-bold gap-y-3">
+      </div> */}
+      <div className="flex flex-col items-start justify-start font-bold gap-y-3">
         <div className="flex flex-col items-center justify-start">
           <p className="text-lg">Frekuensi Alat 1</p>
-          <p className="text-3xl">{Frekuensi1} Hz</p>
+          <p className="text-3xl">{freqData1} kHz</p>
         </div>
         <div className="flex flex-col items-center justify-start">
           <p className="text-lg">Frekuensi Alat 2</p>
-          <p className="text-3xl">{Frekuensi2} Hz</p>
+          <p className="text-3xl">{freqData2} kHz</p>
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };

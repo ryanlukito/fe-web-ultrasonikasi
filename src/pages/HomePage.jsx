@@ -1,4 +1,4 @@
-import Navbar from "../components/navbar"
+import Navbar from "../components/Navbar"
 import { FaRegClock } from "react-icons/fa6";
 import { MdOutlineSettingsRemote } from "react-icons/md";
 import { IoWater } from "react-icons/io5";

@@ -24,7 +24,7 @@ export function getCurrentDateTimeID() {
 
 }
 
-export function useMqtt(topic = "/d01/receive_data") {
+export function useMqttReceiveData(topic = "/d01/receive_data") {
   const [sensorData1, setSensorData1] = useState([]);
   const [sensorData2, setSensorData2] = useState([]);
   const [{ date, time }, setDateTime] = useState(getCurrentDateTimeID());
@@ -46,9 +46,6 @@ export function useMqtt(topic = "/d01/receive_data") {
         console.log(message);
         const parsed = JSON.parse(message.toString());
         const { NTU1, NTU2 } = parsed;
-
-        // NTU1 = -2.1 * NTU1 + 52 * NTU1 - 12.7;
-        // NTU2 = -2.1 * NTU2 + 52 * NTU2 - 12.7;
 
         if (
           typeof NTU1 === 'number' &&
@@ -84,12 +81,10 @@ export function useMqtt(topic = "/d01/receive_data") {
     const interval = setInterval(() => {
       if (Date.now() - lastMessageTime > 20000) {
         const { time: newTime, date: newDate } = getCurrentDateTimeID();
-        // const randomValue1 = Math.floor(Math.random() * 10 + 40);
-        // const randomValue2 = Math.floor(Math.random() * 10 + 40);
 
         setTimeLabels((prev) => [...prev, newTime].slice(-10));
-        setSensorData1((prev) => [...prev, 1930].slice(-10));
-        setSensorData2((prev) => [...prev, 1925].slice(-10));
+        setSensorData1((prev) => [...prev, 650].slice(-10));
+        setSensorData2((prev) => [...prev, 525].slice(-10));
         setDateTime({ time: newTime, date: newDate });
       }
     }, 1000);
@@ -101,4 +96,59 @@ export function useMqtt(topic = "/d01/receive_data") {
   }, [topic, lastMessageTime]);
 
   return { sensorData1, sensorData2, timeLabels, date };
+}
+
+export function useMqttFreqData(topic = "/d01/freq_data") {
+  const [freqData1, setfreqData1] = useState(null);
+  const [freqData2, setfreqData2] = useState(null);
+  const [lastMessageTime, setLastMessageTime] = useState(Date.now());
+
+  useEffect(() => {
+    const client = mqtt.connect("ws://test.mosquitto.org:8080/mqtt");
+
+    client.on("connect", () => {
+      console.log("✅ Connected to MQTT broker from React");
+      client.subscribe(topic, (err) => {
+        if (!err) console.log(`📩 Subscribed to ${topic}`);
+      });
+    });
+
+    client.on("message", (_, message) => {
+      try {
+        const parsed = JSON.parse(message.toString());
+        const { FREQ1, FREQ2 } = parsed;
+
+        if (
+          typeof FREQ1 === "number" &&
+          typeof FREQ2 === "number" &&
+          !isNaN(FREQ1) &&
+          !isNaN(FREQ2)
+        ) {
+          setfreqData1(FREQ1);
+          setfreqData2(FREQ2);
+          setLastMessageTime(Date.now());
+          console.log(`✅ Updated FREQ1=${FREQ1}, FREQ2=${FREQ2}`);
+        } else {
+          console.warn("⚠️ Skipping invalid MQTT message:", parsed);
+        }
+      } catch (e) {
+        console.error("❌ Invalid MQTT message", e);
+      }
+    });
+
+    return () => client.end();
+  }, [topic]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (Date.now() - lastMessageTime > 20000) {
+        setfreqData1(40);
+        setfreqData2(35);
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [lastMessageTime]);
+
+  return { freqData1, freqData2 };
 }

@@ -22,9 +22,9 @@ const DataSensor = ({lokasiSensor}) => {
         <p>Tanggal: <span>{date}</span></p>
         <p>Waktu: <span>{time}</span> WIB</p>
       </div>
-      {/* <div>
+      <div>
         <p className='text-xl font-bold mb-3'>Status Koneksi</p>
-      </div> */}
+      </div>
     </div>
   )
 }
