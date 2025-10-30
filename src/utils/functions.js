@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import mqtt from "mqtt";
 import axios from "axios";
-// import client from "./mqttClient";
 
 export function getCurrentDateTimeID() {
     const now = new Date();
