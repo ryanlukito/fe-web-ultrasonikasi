@@ -7,7 +7,7 @@ import { useMqttFreqData } from "../utils/functions";
 
 const KontroldanFrekuensi = () => {
   const clientRef = useRef(null);
-  const {freqData1, freqData2} = useMqttFreqData('/d01/receive_data')
+  const {freqData1, freqData2} = useMqttFreqData('/d01/freq_data')
   
   useEffect(() => {
     // Connect once when component mounts

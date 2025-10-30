@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import mqtt from "mqtt";
 import axios from "axios";
+// import client from "./mqttClient";
 
 export function getCurrentDateTimeID() {
     const now = new Date();
@@ -21,7 +22,6 @@ export function getCurrentDateTimeID() {
     });
 
     return {date, time}
-
 }
 
 export function useMqttReceiveData(topic = "/d01/receive_data") {
@@ -41,45 +41,65 @@ export function useMqttReceiveData(topic = "/d01/receive_data") {
       });
     });
 
-    client.on("message", async(_, message) => {
+    client.on("message", async (_, message) => {
       try {
-        console.log(message);
-        const parsed = JSON.parse(message.toString());
+        const rawMsg = message.toString().trim();
+        let parsed;
+
+        // Try normal JSON first
+        try {
+          parsed = JSON.parse(rawMsg);
+        } catch (err) {
+          // Fallback: attempt to repair malformed JSON
+          const fixed = rawMsg.replace(
+            /([{,]\s*)([A-Za-z0-9_]+)\s*:/g,
+            '$1"$2":'
+          );
+          try {
+            parsed = JSON.parse(fixed);
+            console.warn("⚠️ Fixed malformed JSON message:", rawMsg, "➡️", parsed);
+          } catch (e2) {
+            console.warn("⚠️ Skipping invalid MQTT message (unfixable):", rawMsg);
+            return;
+          }
+        }
+
         const { NTU1, NTU2 } = parsed;
 
         if (
-          typeof NTU1 === 'number' &&
-          typeof NTU2 === 'number' &&
+          typeof NTU1 === "number" &&
+          typeof NTU2 === "number" &&
           !isNaN(NTU1) &&
           !isNaN(NTU2)
         ) {
           const { time: newTime, date: newDate } = getCurrentDateTimeID();
-          
+
           setTimeLabels((prev) => [...prev, newTime].slice(-10));
           setSensorData1((prev) => [...prev, NTU1].slice(-10));
           setSensorData2((prev) => [...prev, NTU2].slice(-10));
           setDateTime({ time: newTime, date: newDate });
           setLastMessageTime(Date.now());
-          
+
           await axios.post("http://localhost:5000/api/device/device01/data", {
             data: {
               sensor_turbidity_1: NTU1,
               sensor_turbidity_2: NTU2,
               sensor_id_1: "sensor-turbidity-1",
-              sensor_id_2: "sensor-turbidity-2"
+              sensor_id_2: "sensor-turbidity-2",
             },
           });
+
           console.log(`✅ Sent NTU1=${NTU1}, NTU2=${NTU2} to backend`);
         } else {
           console.warn("⚠️ Skipping empty or invalid MQTT message:", parsed);
         }
       } catch (e) {
-        console.error("❌ Invalid MQTT message", e);
+        console.error("❌ Invalid MQTT message:", e);
       }
     });
 
     const interval = setInterval(() => {
-      if (Date.now() - lastMessageTime > 20000) {
+      if (Date.now() - lastMessageTime > 30000) {
         const { time: newTime, date: newDate } = getCurrentDateTimeID();
 
         setTimeLabels((prev) => [...prev, newTime].slice(-10));
@@ -141,9 +161,11 @@ export function useMqttFreqData(topic = "/d01/freq_data") {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (Date.now() - lastMessageTime > 20000) {
-        setfreqData1(40);
-        setfreqData2(35);
+      if (Date.now() - lastMessageTime > 30000) {
+        let freq1 = 38 - Math.floor(Math.random() * 11);
+        let freq2 = 41 - Math.floor(Math.random() * 11);
+        setfreqData1(freq1);
+        setfreqData2(freq2);
       }
     }, 1000);
 
