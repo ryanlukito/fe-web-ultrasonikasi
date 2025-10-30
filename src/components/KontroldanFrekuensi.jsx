@@ -5,7 +5,7 @@ import mqtt from "mqtt";
 import toast from "react-hot-toast";
 import { useMqttFreqData } from "../utils/functions";
 
-const KontroldanFrekuensi = ({Frekuensi1, Frekuensi2}) => {
+const KontroldanFrekuensi = () => {
   const clientRef = useRef(null);
   const {freqData1, freqData2} = useMqttFreqData('/d01/receive_data')
   
