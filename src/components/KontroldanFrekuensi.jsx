@@ -58,7 +58,7 @@ const KontroldanFrekuensi = () => {
 
   return (
     <div className="flex flex-row items-start justify-evenly text-black gap-x-4">
-      <div className="flex flex-col items-center justify-center gap-y-3">
+      {/* <div className="flex flex-col items-center justify-center gap-y-3">
         <p className="text-lg font-bold">Pemancar Ultrasonik</p>
         <button
           onClick={() => sendCommand(1)}
@@ -72,7 +72,7 @@ const KontroldanFrekuensi = () => {
         >
           OFF
         </button>
-      </div>
+      </div> */}
       {/* <div>
         <p className='text-xl font-bold mb-3'>Data Sensor</p>
         <p>Lokasi: <span>{lokasiSensor}</span></p>
